@@ -18,53 +18,59 @@ namespace SortPersonList
         {
             string line;
             List<Person> personList = new List<Person>();
+            try
+            {
+                // Read the file.
+                string path = Path.Combine(Path.GetDirectoryName(Path.GetDirectoryName(System.IO.Directory.GetCurrentDirectory())), @"Data\names.txt");
+                System.IO.StreamReader file = new System.IO.StreamReader(path);
 
-            // Read the file.
-            string path = Path.Combine(Path.GetDirectoryName(Path.GetDirectoryName(System.IO.Directory.GetCurrentDirectory())), @"Data\names.txt");
-            System.IO.StreamReader file = new System.IO.StreamReader(path);
+                //Loop the file and put names into a list.
+                while ((line = file.ReadLine()) != null)
+                {
+                    List<string> names = line.Split(',').ToList<string>();
+
+                    Person person = new Person();
+                    person.FirstName = names[1];
+                    person.LastName = names[0];
+
+                    personList.Add(person);
+                }
+
+                file.Close();
             
-            //Loop the file and put names into a list.
-            while ((line = file.ReadLine()) != null)
-            {
-                List<string> names = line.Split(',').ToList<string>();
-
-                Person person = new Person();
-                person.FirstName = names[1];
-                person.LastName = names[0];
-
-                personList.Add(person);
-            }
-
-            file.Close();
-
-            //Sort the name list with Lastname and Firstname.
-            personList.Sort(
-                delegate(Person p1, Person p2)
-                {
-                    int compareDate = p1.LastName.CompareTo(p2.LastName);
-                    if (compareDate == 0)
+                //Sort the name list with Lastname and Firstname.
+                personList.Sort(
+                    delegate(Person p1, Person p2)
                     {
-                        return p1.FirstName.CompareTo(p2.FirstName);
+                        int compareDate = p1.LastName.CompareTo(p2.LastName);
+                        if (compareDate == 0)
+                        {
+                            return p1.FirstName.CompareTo(p2.FirstName);
+                        }
+                        return compareDate;
                     }
-                    return compareDate;
-                }
-            );
+                );
 
-            //Generate the new file for the sorted name list.
-            using (System.IO.StreamWriter outputFile = new System.IO.StreamWriter(@".\newNames.txt"))
-            {
-                foreach (Person person in personList)
+                //Generate the new file for the sorted name list.
+                using (System.IO.StreamWriter outputFile = new System.IO.StreamWriter(@".\newNames.txt"))
                 {
-                    StringBuilder sb = new StringBuilder();
+                    foreach (Person person in personList)
+                    {
+                        StringBuilder sb = new StringBuilder();
 
-                    sb.Append(person.LastName);
-                    sb.Append(",");
-                    sb.Append(person.FirstName);
+                        sb.Append(person.LastName);
+                        sb.Append(",");
+                        sb.Append(person.FirstName);
 
-                    outputFile.WriteLine(sb.ToString());
+                        outputFile.WriteLine(sb.ToString());
+                    }
                 }
-            }
 
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine("Error: {0}", e.ToString());
+            }
         }
     }
 }
