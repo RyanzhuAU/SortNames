@@ -1,0 +1,5 @@
+d:\我的文档\visual studio 2012\Projects\SortPersonList\SortPersonList\bin\Debug\SortPersonList.exe.config
+d:\我的文档\visual studio 2012\Projects\SortPersonList\SortPersonList\bin\Debug\SortPersonList.exe
+d:\我的文档\visual studio 2012\Projects\SortPersonList\SortPersonList\bin\Debug\SortPersonList.pdb
+d:\我的文档\visual studio 2012\Projects\SortPersonList\SortPersonList\obj\Debug\SortPersonList.exe
+d:\我的文档\visual studio 2012\Projects\SortPersonList\SortPersonList\obj\Debug\SortPersonList.pdb
